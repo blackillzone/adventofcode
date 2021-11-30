@@ -9,6 +9,31 @@ import (
 	"strings"
 )
 
+type password struct {
+	min, max         int
+	letter, password string
+}
+
+func (p password) CheckValidityFirstPart() bool {
+	result := strings.Count(p.password, p.letter)
+
+	if (result >= p.min) && (result <= p.max) {
+		return true
+	} else {
+		return false
+	}
+}
+
+func (p password) CheckValiditySecondPart() bool {
+	result := strings.SplitAfter(p.password, "")
+
+	if ((result[p.min] == p.letter) && (result[p.max] != p.letter)) || ((result[p.min] != p.letter) && (result[p.max] == p.letter)) {
+		return true
+	} else {
+		return false
+	}
+}
+
 func main() {
 	inputPath := "./input"
 	fmt.Println("--- Part One ---")
@@ -20,22 +45,54 @@ func main() {
 
 func part1(inputPath string) int {
 	input := readStrings(inputPath)
-	fmt.Println(parseInput(input, 10))
-	return 0
+	return countValidPasswords(parseInput(input), true)
 }
 
 func part2(inputPath string) int {
-	return 0
+	input := readStrings(inputPath)
+	return countValidPasswords(parseInput(input), false)
 }
 
-func parseInput(input []string, index int) []string {
+func parseInput(input []string) []password {
 	var splittedLine []string
-	for i, l := range input {
-		if i == index {
-			splittedLine = strings.Split(l, ":")
+	var rules []string
+	var charRange []string
+	var passwordList []password
+
+	passwordList = nil
+
+	for _, l := range input {
+		splittedLine = strings.Split(l, ":")
+		rules = strings.Split(splittedLine[0], " ")
+		charRange = strings.Split(rules[0], "-")
+		p := password{
+			min:      toInt(charRange[0]),
+			max:      toInt(charRange[1]),
+			letter:   rules[1],
+			password: splittedLine[1],
+		}
+		passwordList = append(passwordList, p)
+	}
+	return passwordList
+}
+
+func countValidPasswords(passwords []password, part1 bool) int {
+	var Count int
+
+	Count = 0
+
+	for _, p := range passwords {
+		if part1 {
+			if p.CheckValidityFirstPart() {
+				Count++
+			}
+		} else {
+			if p.CheckValiditySecondPart() {
+				Count++
+			}
 		}
 	}
-	return splittedLine
+	return Count
 }
 
 func readStrings(filename string) []string {
