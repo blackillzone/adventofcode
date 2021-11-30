@@ -117,10 +117,10 @@ func min(numbers []int) int {
 }
 
 func isElementExist(i []int, num int) bool {
-  for _, v := range i {
-    if v == num {
-      return true
-    }
-  }
-  return false
+	for _, v := range i {
+		if v == num {
+			return true
+		}
+	}
+	return false
 }

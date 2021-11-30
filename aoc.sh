@@ -101,11 +101,6 @@ function init_aoc {
     mkdir -p $BASE_DIR/adventofcode_${YEAR}/day${DAY}
   fi
 
-  if [ ! -f "$BASE_DIR/adventofcode_${YEAR}/day${DAY}/readme.md" ]; then
-    log "Retrieving puzzle description..."
-    aoc r -d "${DAY}" -y "${YEAR}" >> "$BASE_DIR/adventofcode_${YEAR}/day${DAY}/readme.md"
-  fi
-
   if [ ! -f "$BASE_DIR/adventofcode_${YEAR}/day${DAY}/input" ]; then
     log "Retrieving input..."
     aoc d -d "${DAY}" -y "${YEAR}" -f "$BASE_DIR/adventofcode_${YEAR}/day${DAY}/input"
@@ -121,6 +116,9 @@ function init_aoc {
   if [ ${LANGUAGE} == "python" ]; then
     log "To do python"
   fi
+
+  log "Retrieving puzzle description..."
+  aoc r -d "${DAY}" -y "${YEAR}"
 }
 
 function run_aoc_go {

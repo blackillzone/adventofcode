@@ -19,11 +19,23 @@ func main() {
 }
 
 func part1(inputPath string) int {
+	input := readStrings(inputPath)
+	fmt.Println(parseInput(input, 10))
 	return 0
 }
 
 func part2(inputPath string) int {
 	return 0
+}
+
+func parseInput(input []string, index int) []string {
+	var splittedLine []string
+	for i, l := range input {
+		if i == index {
+			splittedLine = strings.Split(l, ":")
+		}
+	}
+	return splittedLine
 }
 
 func readStrings(filename string) []string {
