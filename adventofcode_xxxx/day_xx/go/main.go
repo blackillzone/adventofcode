@@ -7,6 +7,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"time"
 )
 
 func main() {
@@ -19,10 +20,12 @@ func main() {
 }
 
 func part1(inputPath string) int {
+	defer timeTrack(time.Now(), "Part One")
 	return 0
 }
 
 func part2(inputPath string) int {
+	defer timeTrack(time.Now(), "Part Two")
 	return 0
 }
 
@@ -90,4 +93,9 @@ func min(numbers []int) int {
 		}
 	}
 	return currMin
+}
+
+func timeTrack(start time.Time, name string) {
+	elapsed := time.Since(start)
+	fmt.Println(name, "took", elapsed)
 }

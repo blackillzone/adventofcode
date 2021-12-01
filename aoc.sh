@@ -81,8 +81,8 @@ do
 done
 
 [ -z "${YEAR}" ] && [ -z "${DAY}" ] && [ $(date -u +"%m") != 12 ] && error "We're currently not in December, so '-year' and '-day' parameters are mandatory." && echo -e ${USAGE} && exit 1
-[ -z "${YEAR}" ] && log "'-year' parameter not set. Set to current year: $(date -u +"%Y")" && YEAR=$(date -u +"%Y")
-[ -z "${DAY}" ] && log "'-day' parameter not set. Set to current day: $(date -u +"%d")" && DAY=$(date -u +"%d")
+[ -z "${YEAR}" ] && YEAR=$(date -u +"%Y")
+[ -z "${DAY}" ] && DAY=$(date -u +"%d")
 [ -z "${ACTION}" ] && error "'-action' parameter not set, and is mandatory." && echo -e ${USAGE} && exit 1
 [ ${ACTION} != "init" ] && [ ${ACTION} != "run" ] && [ ${ACTION} != "publish" ] && error "${ACTION} is not supported. Try init, run or publish." && echo -e ${USAGE} && exit 1
 [ ${ACTION} == "publish" ] && [ -z "${PART}" ] && error "'-part' parameter not set, and is mandatory, when publishing." && echo -e ${USAGE} && exit 1
@@ -129,10 +129,10 @@ function run_aoc_go {
 function publish_aoc_go {
   cd "$BASE_DIR/adventofcode_${YEAR}/day${DAY}/"
   if [ ${PART} == "1" ]; then
-    RESULT=$(go run "main.go" | sed -n '2p')
+    RESULT=$(go run "main.go" | sed -n '3p')
     aoc s 1 ${RESULT} -y ${YEAR} -d ${DAY}
   elif [ ${PART} == "2" ]; then
-    RESULT=$(go run "main.go" | sed -n '4p')
+    RESULT=$(go run "main.go" | sed -n '6p')
     aoc s 2 ${RESULT} -y ${YEAR} -d ${DAY}
   fi
 }
