@@ -40,9 +40,7 @@ func part2(inputPath string) int {
 	depthList := readNumbers(inputPath)
 
 	for i := 0; i < len(depthList)-3; i++ {
-		firstSumOfThree := depthList[i] + depthList[i+1] + depthList[i+2]
-		secondSumOfThree := depthList[i+1] + depthList[i+2] + depthList[i+3]
-		if isDepthIncrease(firstSumOfThree, secondSumOfThree) {
+		if isDepthIncrease(depthList[i], depthList[i+3]) {
 			count++
 		}
 	}
