@@ -21,38 +21,27 @@ func main() {
 
 func part1(inputPath string) int {
 	defer timeTrack(time.Now(), "Part One")
-
-	count := 0
-	depthList := readNumbers(inputPath)
-
-	for i := 0; i < len(depthList)-1; i++ {
-		if isDepthIncrease(depthList[i], depthList[i+1]) {
-			count++
-		}
-	}
-	return count
+	return countDepthIncrease(readNumbers(inputPath), 1)
 }
 
 func part2(inputPath string) int {
 	defer timeTrack(time.Now(), "Part Two")
+	return countDepthIncrease(readNumbers(inputPath), 3)
+}
 
+// 1: x1 < x2
+// 2: x1 + x2 + x3 < x2 + x3 + x4 so x1 < x4
+// To make it generic, just need to set a "window", which correspond on how much values we need to compare
+// In the first part, we need to compare only one value, and in the second part, it's three value.
+func countDepthIncrease(depthList []int, window int) int {
 	count := 0
-	depthList := readNumbers(inputPath)
 
-	for i := 0; i < len(depthList)-3; i++ {
-		if isDepthIncrease(depthList[i], depthList[i+3]) {
+	for i := 0; i < len(depthList)-window; i++ {
+		if depthList[i] < depthList[i+window] {
 			count++
 		}
 	}
 	return count
-}
-
-func isDepthIncrease(depth1 int, depth2 int) bool {
-	if depth1 < depth2 {
-		return true
-	} else {
-		return false
-	}
 }
 
 func readStrings(filename string) []string {
