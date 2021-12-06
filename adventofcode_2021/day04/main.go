@@ -158,9 +158,7 @@ func part2(inputPath string) int {
 
 	for _, num := range numList {
 		for i, grid := range gridList {
-			if grid.validated {
-				continue
-			} else {
+			if !grid.validated {
 				gridList[i].table = drawNumberInGrid(num, gridList[i].table)
 				if checkIfGridWin(gridList[i].table) {
 					gridList[i].validated = true
