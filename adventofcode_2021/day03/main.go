@@ -93,7 +93,6 @@ func filterArray(bitArray [][]string, column int, value string) [][]string {
 			filteredArray = append(filteredArray, bits)
 		}
 	}
-	//fmt.Println(filteredArray)
 	return filteredArray
 }
 
@@ -102,8 +101,7 @@ func mostCommonBit(bitArray [][]string, column int) string {
 	countOne := 0
 
 	for i := range bitArray {
-		if bitArray[i] == nil {
-		} else if bitArray[i][column] == "0" {
+		if bitArray[i][column] == "0" {
 			countZero++
 		} else {
 			countOne++
